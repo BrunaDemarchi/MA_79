@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Motores em Python | Projeto CentroWEG - SENAI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-content">
+            <div class="brand">
+                <span class="badge">SENAI • CentroWEG</span>
+                <h1>Sistema de Cadastro de Motores</h1>
+            </div>
+            <p class="subtitle">Documentação técnica da aplicação monolítica em Python desenvolvida para gestão de dados técnicos de motores elétricos em memória.</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Seção de Contexto / Local de Desenvolvimento -->
+        <section class="card context-card">
+            <div class="context-grid">
+                <div>
+                    <h2>Sobre o Desenvolvimento</h2>
+                    <p>
+                        Este projeto foi desenvolvido durante as atividades de formação técnica no <strong>CentroWEG</strong>, 
+                        unidade educacional fruto da parceria entre o <strong>SENAI</strong> e a <strong>WEG</strong>, 
+                        localizada em <strong>Jaraguá do Sul - SC</strong>.
+                    </p>
+                    <p>
+                        O objetivo da atividade foi aplicar conceitos fundamentais de lógica de programação, 
+                        modularização com funções e manipulação de estruturas de dados (listas e dicionários) 
+                        simulando o catálogo técnico de motores industriais (como as linhas W22 e W21).
+                    </p>
+                </div>
+                <div class="info-box">
+                    <h3>Ficha Técnica do Projeto</h3>
+                    <ul>
+                        <li><strong>Instituição:</strong> SENAI / CentroWEG</li>
+                        <li><strong>Localidade:</strong> Jaraguá do Sul, Santa Catarina</li>
+                        <li><strong>Linguagem:</strong> Python 3</li>
+                        <li><strong>Arquitetura:</strong> Monolítica (arquivo único)</li>
+                        <li><strong>Persistência:</strong> Em memória (Arrays/Listas)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Explicação da Arquitetura do Código -->
+        <section class="section">
+            <h2 class="section-title">Como o Código Funciona</h2>
+            <p class="section-desc">O programa opera sem banco de dados externo, utilizando variáveis globais e funções separadas por responsabilidade (CRUD):</p>
+
+            <div class="cards-grid">
+                <div class="card feature-card">
+                    <div class="card-tag">Estrutura de Dados</div>
+                    <h3>Lista & Dicionários</h3>
+                    <p>A lista global <code>motores = []</code> atua como banco de dados volátil. Cada motor é armazenado como um dicionário contendo <code>id</code>, <code>modelo</code>, <code>fabricante</code>, <code>potencia_cv</code>, <code>tensao_v</code> e <code>rpm</code>.</p>
+                </div>
+
+                <div class="card feature-card">
+                    <div class="card-tag">Create & Read</div>
+                    <h3>cadastrar_motor() & listar_motores()</h3>
+                    <p>Coleta os dados via terminal, valida entradas numéricas com <code>try/except</code>, gera um ID sequencial automático e exibe os registros formatados em tabela no console.</p>
+                </div>
+
+                <div class="card feature-card">
+                    <div class="card-tag">Update & Delete</div>
+                    <h3>editar_motor() & excluir_motor()</h3>
+                    <p>Utilizam a função auxiliar <code>buscar_motor_por_id()</code> para localizar o registro na lista, permitindo atualizar atributos individuais ou remover o item com confirmação.</p>
+                </div>
+
+                <div class="card feature-card">
+                    <div class="card-tag">Ambiente de Teste</div>
+                    <h3>popular_dados_teste() & menu()</h3>
+                    <p>Antes de iniciar o loop principal <code>while True</code>, o sistema pré-carrega 3 modelos reais (WEG e Siemens) para agilizar os testes de listagem e edição.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção com o Código Fonte -->
+        <section class="section">
+            <h2 class="section-title">Código-Fonte (<code>cadastro_motores.py</code>)</h2>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>Python 3 • Arquivo Único</span>
+                    <span>cadastro_motores.py</span>
+                </div>
+                <pre><code># Lista (array) global que funciona como banco de dados em memória
+motores = []
+proximo_id = 1
+
+def cadastrar_motor():
+    global proximo_id
+    print("\n--- CADASTRAR NOVO MOTOR ---")
+    modelo = input("Modelo/Referência: ").strip()
+    fabricante = input("Fabricante (ex: WEG, Siemens): ").strip()
+
+    try:
+        potencia_cv = float(input("Potência (CV): ").replace(",", "."))
+        tensao_v = int(input("Tensão nominal (V) [ex: 220, 380]: "))
+        rpm = int(input("Rotação (RPM): "))
+    except ValueError:
+        print("\n[ERRO] Potência, tensão e RPM devem ser valores numéricos.")
+        return
+
+    motor = {
+        "id": proximo_id,
+        "modelo": modelo,
+        "fabricante": fabricante,
+        "potencia_cv": potencia_cv,
+        "tensao_v": tensao_v,
+        "rpm": rpm
+    }
+
+    motores.append(motor)
+    proximo_id += 1
+    print(f"\n[SUCESSO] Motor ID #{motor['id']} ({modelo}) cadastrado!")
+
+def listar_motores():
+    print("\n--- LISTA DE MOTORES CADASTRADOS ---")
+    if not motores:
+        print("Nenhum motor cadastrado no momento.")
+        return
+
+    print(f"{'ID':&lt;4} | {'Modelo':&lt;18} | {'Fabricante':&lt;14} | {'Potência':&lt;10} | {'Tensão':&lt;8} | {'RPM':&lt;6}")
+    print("-" * 74)
+    for m in motores:
+        print(
+            f"{m['id']:&lt;4} | {m['modelo']:&lt;18} | {m['fabricante']:&lt;14} | "
+            f"{m['potencia_cv']:&lt;7.1f} CV | {m['tensao_v']:&lt;5} V  | {m['rpm']:&lt;6}"
+        )
+
+def buscar_motor_por_id(motor_id):
+    for motor in motores:
+        if motor["id"] == motor_id:
+            return motor
+    return None
+
+def popular_dados_teste():
+    global proximo_id
+    exemplos = [
+        {"id": 1, "modelo": "W22 IR3 Premium", "fabricante": "WEG", "potencia_cv": 5.0, "tensao_v": 380, "rpm": 1750},
+        {"id": 2, "modelo": "1LE0", "fabricante": "Siemens", "potencia_cv": 10.0, "tensao_v": 220, "rpm": 3500},
+        {"id": 3, "modelo": "W21 Trifásico", "fabricante": "WEG", "potencia_cv": 1.5, "tensao_v": 380, "rpm": 1150},
+    ]
+    motores.extend(exemplos)
+    proximo_id = 4</code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Desenvolvido no <strong>CentroWEG • SENAI</strong> — Jaraguá do Sul, SC</p>
+        </div>
+    </footer>
+
+</body>
+</html>

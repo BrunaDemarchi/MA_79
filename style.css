@@ -1,0 +1,243 @@
+/* Paleta de Cores WEG & Identidade Industrial */
+:root {
+    --weg-blue: #00579D;       /* Azul institucional principal */
+    --weg-blue-dark: #003B6F;  /* Azul escuro para contraste e hover */
+    --weg-blue-light: #E6F0F8; /* Azul claro para fundos de destaque */
+    --bg-page: #F4F6F9;        /* Cinza claro industrial */
+    --surface: #FFFFFF;        /* Branco para cartões */
+    --text-main: #1E293B;      /* Cinza chumbo para leitura confortável */
+    --text-muted: #475569;     /* Cinza médio para textos secundários */
+    --border-color: #CBD5E1;   /* Borda sutil */
+    --code-bg: #0F172A;        /* Fundo escuro para bloco de código */
+    --code-text: #E2E8F0;      /* Texto claro do código */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Cabeçalho Institucional */
+.header {
+    background: linear-gradient(135deg, var(--weg-blue) 0%, var(--weg-blue-dark) 100%);
+    color: #FFFFFF;
+    padding: 48px 0;
+    border-bottom: 5px solid #0072CE;
+}
+
+.badge {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+
+.header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.05rem;
+    color: #DCEAF7;
+    max-width: 750px;
+}
+
+/* Seções e Cartões */
+.section {
+    margin: 40px 0;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: var(--weg-blue-dark);
+    margin-bottom: 8px;
+    border-left: 4px solid var(--weg-blue);
+    padding-left: 12px;
+}
+
+.section-desc {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 28px;
+    box-shadow: 0 2px 6px rgba(0, 59, 111, 0.06);
+}
+
+/* Card de Contexto (CentroWEG / SENAI) */
+.context-card {
+    margin-top: -24px;
+    border-top: 4px solid var(--weg-blue);
+}
+
+.context-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+.context-grid h2 {
+    color: var(--weg-blue);
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+}
+
+.context-grid p {
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
+
+.info-box {
+    background-color: var(--weg-blue-light);
+    border: 1px solid #B8D4EC;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.info-box h3 {
+    color: var(--weg-blue-dark);
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #B8D4EC;
+    padding-bottom: 8px;
+}
+
+.info-box ul {
+    list-style: none;
+}
+
+.info-box li {
+    font-size: 0.92rem;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+/* Grid de Explicação das Funções */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.feature-card {
+    padding: 22px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--weg-blue);
+}
+
+.card-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--weg-blue);
+    background-color: var(--weg-blue-light);
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    color: var(--weg-blue-dark);
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 0.93rem;
+    color: var(--text-muted);
+}
+
+code {
+    font-family: "Fira Code", Consolas, Monaco, monospace;
+    background-color: #E2E8F0;
+    color: var(--weg-blue-dark);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.88em;
+}
+
+/* Bloco de Código */
+.code-container {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.code-header {
+    background-color: var(--weg-blue-dark);
+    color: #FFFFFF;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+pre {
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    padding: 20px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+/* Rodapé */
+.footer {
+    background-color: var(--weg-blue-dark);
+    color: #DCEAF7;
+    text-align: center;
+    padding: 24px 0;
+    margin-top: 60px;
+    font-size: 0.9rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .context-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+        font-size: 1.75rem;
+    }
+}
